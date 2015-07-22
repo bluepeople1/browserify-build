@@ -1,0 +1,13 @@
+{	
+	"app": "app",
+	"dest": "build",
+	"browserify": {
+		"extensions": [".coffee", ".hbs"],
+		"bundleConfigs": [{
+			"debug": true,
+		    "entries": "app/scripts/app.js",
+		    "dest": "app/scripts/",
+		    "outputName": "bundle.js"
+		}]
+	}
+}

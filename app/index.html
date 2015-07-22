@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" xmlns:ng="http://angularjs.org">
+  <head>
+    <meta charset="utf-8">
+    <title>钉钉云盘</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" id="favicon" href="//g.alicdn.com/dingding/web/0.2.6/img/oldIcon.ico" type="image/x-icon" />
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:inlinecss(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/nprogress/nprogress.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <!-- <link rel="stylesheet" href="styles/common.css" /> -->
+    <!-- <link rel="stylesheet" href="styles/index.css" /> -->
+    <link rel="stylesheet" href="styles/base.css" />
+    <!-- endbuild -->
+  </head>
+  <body ng-controller="appController" ng-click="clickBody($event)">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="container">
+        <div ng-include="'views/header.html'"></div>
+
+        <div class="container-wrap content">
+            <!-- 侧边栏 sidebar start -->
+            <div ng-include="'views/sidebar.html'"></div>
+
+            <!-- 侧边栏 sidebar end -->
+            
+            <!-- 路由区 route start-->
+            <div ui-view></div>
+            <!-- 路由区 route end -->
+        </div>
+    </div>
+
+    
+    <div dialog-upload active="State.uploadDialog" min="State.uploadDialogMin" upload-files-list="Data.uploadFilesList"></div>
+    
+    <div class="u-mask" ng-class="{'show':State.maskActive, 'transition-opacity':true}" ng-click="clickMask($event)"></div>
+
+    <!-- 预览框 -->
+    <div preview ng-show="previewFrame.active"></div>
+
+    <!-- 文件下载 -->
+    <div>
+        <iframe refreshable="downloadConf.refresh" url="downloadConf.url" path="downloadConf.path" src="" height="0" width="0" border="none"></iframe>
+    </div>
+
+
+
+    <div msgbox msg-obj="msgbox"></div>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:inlinejs(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/nprogress/nprogress.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- <script sqm_static=1 sqm_kernel=1 sqm_timeout=20000 sqm_framework=1 src="vendors/upload.js"></script> -->
+
+    <script type="text/javascript" src="/scripts/bundle.js">
+    </script>
+</body>
+</html>
+  
