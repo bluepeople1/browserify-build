@@ -10,6 +10,5 @@ gulp.task('wiredep', function () {
 	    }))
 	    .pipe(gulp.dest(config.app));
 	    
-	
 })
 

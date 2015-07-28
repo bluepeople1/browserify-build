@@ -13,7 +13,7 @@ gulp.task('sass', function () {
         .on('error', handleErrors)
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.app + "/styles"))
-        .pipe(browserSync.stream());
+        // .pipe(browserSync.stream());
 
     gulp.watch(config.app + '/styles/sass/{,**/}*.{scss, sass}', ['sass'])
 })

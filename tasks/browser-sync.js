@@ -6,6 +6,17 @@ var Config      = require('../config.json');
 gulp.task('serve', function() {
     browserSync.init([Config.app + '/**.*'], {
         // https: true,
+        port: Config.port,
+        ui: {
+		    port: 8080,
+		    weinre: {
+		        port: 9090
+		    }
+		},
+		reloadOnRestart: false,
+		notify: true,
+		browser: "google chrome",
+        open: "external",
 	    ghostMode: {
 	        clicks: true,
 	        location: true,

@@ -1,10 +1,11 @@
 {	
 	"app": "app",
 	"dest": "build",
+	"port": 8080,
 	"browserify": {
 		"extensions": [".coffee", ".hbs"],
+		"debug": true,
 		"bundleConfigs": [{
-			"debug": true,
 		    "entries": "app/scripts/app.js",
 		    "dest": "app/scripts/",
 		    "outputName": "bundle.js"

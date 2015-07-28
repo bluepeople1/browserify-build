@@ -4,8 +4,7 @@
   "description": "this is an auto build tools",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install -g bower gulp && npm install && bower install",
-    "start": "gulp default",
+    "start": "npm install -g bower gulp && npm install && bower install && gulp default",
     "build": "gulp build"
   },
   "keywords": [

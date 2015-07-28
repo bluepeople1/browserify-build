@@ -11,7 +11,7 @@ var bundleLogger = require('./util/logger');
 var handleErrors = require('./util/handlerError');
 var Config       = require('../config.json').browserify;
 
-gulp.task('browserify', function () {
+gulp.task('browserify', ['clean'], function () {
 
   browsersync.notify('Browserify start');
   var bundleQueue = Config.bundleConfigs.length;
@@ -54,7 +54,6 @@ gulp.task('browserify', function () {
             .pipe(gulp.dest(bundleConfig.dest))
             .on('end', function () {
               gutil.log('Browserify end!')
-              // return bundle();
             });
     }
 
