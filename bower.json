@@ -4,8 +4,7 @@
   "dependencies": {
     "nprogress": "~0.1.6",
     "animate.css": "~3.2.6",
-    "bootstrap": "~3.3.5",
-    "underscore": "~1.8.3"
+    "seajs": "~3.0.0"
   },
   "devDependencies": {},
   "appPath": "app"

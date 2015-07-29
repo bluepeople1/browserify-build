@@ -14,7 +14,7 @@ gulp.task('serve', function() {
 		    }
 		},
 		reloadOnRestart: false,
-		notify: true,
+		notify: false,
 		browser: "google chrome",
         open: "external",
 	    ghostMode: {
