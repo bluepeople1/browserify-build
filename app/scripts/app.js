@@ -1,5 +1,8 @@
 var Util = require('./util');
 var _ = require('underscore');
+var $ = require('jquery');
+
+
 
 var tools = {
 	extend: 'afe',
