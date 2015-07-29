@@ -8,6 +8,7 @@
 		"bundleConfigs": [{
 		    "entries": "app/scripts/app.js",
 		    "dest": "app/scripts/",
+		    "build": "build/scripts",
 		    "outputName": "bundle.js"
 		}]
 	}

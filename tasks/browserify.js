@@ -51,7 +51,7 @@ gulp.task('browserify', ['clean'], function () {
             // writes .map file
             .pipe(sourcemaps.write('./'))
             // Specify the output destination
-            .pipe(gulp.dest(bundleConfig.dest))
+            .pipe(gulp.dest(!gulp.env.production ? bundleConfig.dest : bundleConfig.build))
             .on('end', function () {
               gutil.log('Browserify end!')
             });
