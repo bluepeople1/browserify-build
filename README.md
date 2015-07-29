@@ -6,7 +6,6 @@
 
 * 构建工具使用了sass，sass编译依赖于ruby，请移步[ruby官网](https://www.ruby-lang.org/zh_cn/)安装
 * python 3.x的版本与2.x版本不兼容，请使用2.x的版本
-* 如果在下面的`npm start`中失败，请下载node_modules.zip压缩包，自行解压，放在对应的位置
 * 如果不想使用sass, 请在gulpfile.js中
 
 		gulp.task('default', ['clean', 'browserify', 'sass', 'wiredep', 'serve'], function () {
@@ -46,5 +45,5 @@
  * 整个文件一共有4个文件夹目录，其中app为我们的开发文件夹，所有开发代码建议都同意保存在app下，build文件夹为开发工具构建后的文件夹，任何情况下都不建议去修改该文件夹下地东西，node_modules为npm依赖模块的文件夹，属于库文件，绝不允许修改(node_modules已经被添加到.gitignore中,避免提交到git仓库中)，bower_components为bower安装的库文件，也不允许修改
  * `npm start`命令只是在第一次git clone后执行，后面的开发中，并不需要重复执行`npm build`, 只需要执行`gulp`就好
  * 开发时，请在命令行中输入：`gulp`, 然后会启动服务器，并在浏览器中打开。
- * 当开发结束后，请输入`gulp build`, 工程会自动构建完毕，build文件夹中的代码已经经过压缩构建完毕。可以提交到cdn中。
+ * 当开发结束后，请输入`gulp build --production`, 工程会自动构建。
  
