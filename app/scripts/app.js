@@ -1,5 +1,8 @@
 var Util = require('./util');
-console.log('I miss you');
+var $ = require('jquery');
+
+console.log('jquery test');
+
 var tools = {
 	extend: 'afe',
 	a: 'afefe',
