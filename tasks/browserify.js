@@ -10,14 +10,14 @@ var browsersync  = require('./browser-sync');
 var bundleLogger = require('./util/logger');
 var handleErrors = require('./util/handlerError');
 var Config       = require('../config.json').browserify;
+var babelify     = require('babelify');
 
-gulp.task('browserify', ['clean'], function () {
+gulp.task('browserify', function () {
 
   browsersync.notify('Browserify start');
   var bundleQueue = Config.bundleConfigs.length;
 
   var browserifyOne = function (bundleConfig) {
-
 
     var bundler = browserify({
       // Required watchify args
@@ -25,17 +25,23 @@ gulp.task('browserify', ['clean'], function () {
       packageCache: {},
       fullPaths: false,
       // Specify the entry point of your app
-          entries: bundleConfig.entries,
-          // Enable source maps!
-          debug: Config.debug,
-          // Add file extentions to make optional in your requires
-          extensions: Config.extensions
+      entries: bundleConfig.entries,
+      // Enable source maps!
+      debug: Config.debug,
+      // Add file extentions to make optional in your requires
+      extensions: Config.extensions,
+      // runtime: require.resolve('regenerator/runtime')
     })
 
     var bundle = function () {
       // Log when bundling starts
         bundleLogger.start(bundleConfig.outputName);
         return bundler
+            .transform(babelify.configure({
+                ignore: /(bower_components)|(node_modules)/,
+                stage: 0,
+                optional: ["runtime"]
+            }))
             .bundle()
             // Report compile errors
             .on('error', handleErrors)
@@ -47,7 +53,7 @@ gulp.task('browserify', ['clean'], function () {
             .pipe(buffer())
             // optional, remove if you dont want sourcemaps
             .pipe(sourcemaps.init({loadMaps: true, debug: true}))
-            .pipe(uglify())
+            // .pipe(uglify())
             // writes .map file
             .pipe(sourcemaps.write('./'))
             // Specify the output destination
@@ -67,3 +73,52 @@ gulp.task('browserify', ['clean'], function () {
   // Start bundling with Browserify for each bundleConfig specified
     Config.bundleConfigs.forEach(browserifyOne);
 })
+
+/*gulp.task('browserify', function(callback){
+
+    function createBundle(b_config){
+
+        var bundler = browserify(b_config.entry, {
+            debug: true,
+        });
+
+        if( global.isWatching ){
+            // console.log("Uses watchify");
+            bundler = watchify(bundler);
+            bundler.on('update', bundle);
+        }
+
+        bundler.transform(to5);
+
+        var reportFinsihed = function(){
+            bundleLogger.end(b_config.outputName);
+
+
+            if( bundleQueueLen ){
+                bundleQueueLen --;
+
+                if( bundleQueueLen === 0 ){
+                    callback();
+                }
+            }
+        };
+
+        function bundle(){
+            // Create a logger when it starts logging
+            bundleLogger.start(b_config.outputName);
+
+            return bundler.bundle()
+                    .on('error', handleErrors)
+                    .pipe(source(b_config.outputName))
+                    .pipe(gulp.dest(b_config.dest))
+                    .on('end', reportFinsihed);
+        }
+
+        bundle();
+    }
+
+    var bundleQueue = config.bundleConfigs;
+    var bundleQueueLen = bundleQueue.length;
+    bundleQueue.forEach(createBundle);
+
+});*/

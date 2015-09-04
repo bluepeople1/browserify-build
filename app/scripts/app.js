@@ -1,15 +1,21 @@
-var Util = require('./util');
-var _ = require('underscore');
-var $ = require('jquery');
+'use strict';
 
+require("babel/polyfill");
+require('jquery');
+require('./es6/tree');
 
-
-var tools = {
-	extend: 'afe',
-	a: 'afefe',
-	name: 'chenke',
-	age: 21
+function* iterTree(tree) {
+  if (Array.isArray(tree)) {
+    for(let i=0; i < tree.length; i++) {
+      yield* iterTree(tree[i]);
+    }
+  } else {
+    yield tree;
+  }
 }
 
-console.log('this is my angular demo');
-var angular = 'angular';
+const tree = [ 'a', ['b', 'c'], ['d', 'e', 'abcd'] ];
+
+for(let x of iterTree(tree)) {
+  // console.log(x);
+} 

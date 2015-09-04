@@ -1,0 +1,73 @@
+/* 百分比宽度布局 */
+$display: inline-block;
+.layout-inblock {
+    display: $display;
+}
+
+@for $i from 1 through 20 {
+    .layout-#{$i * 5}w { width: 5% * $i }
+}
+
+
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $header, $size in $headings {
+  #{$header} {
+    font-size: $size;
+  }
+}
+
+$verticalAlign: left, right, top, bottom, center, middle;
+@each $align in $verticalAlign {
+    .layout-valign-#{$align} {
+        vertical-align: $align !important;
+    }
+    .layout-text-aligin-#{$align} {
+        text-align: $align;
+    }
+}
+/* 方向 */
+$directions: top, left, right, bottom;
+@each $dir in $directions {
+    @for $i from 1 through 36 {
+        .largout-margin-#{$i * 5}-#{$dir} { 
+            margin-#{$dir}: #{$i * 5}px;
+        }
+        .largout-margin-#{$i * 5}-#{$dir}-reverse { 
+            margin-#{$dir}: -#{$i * 5}px;
+        }
+    }
+}
+
+/* 字体颜色 */
+$font-color: #222, #333, #666, #888, #ccc, #eee, #dcdcdc;
+@each $color in $font-color {
+    .s-fc-#{$color} {
+        color: $color
+    }
+}
+@for $i from 12 to 36 {
+    .s-fs-#{$i} {
+        font-size: #{$i}px
+    }
+}
+
+/* ico sprite */
+.u-ico {
+    display: $display;
+    vertical-align: text-bottom;
+    .u-ico-small {
+        width: 16px;
+        height: 16px;
+    }
+    .u-ico-medium {
+        width: 22px;
+        height: 22px;
+    }
+}
+.u-ico-add {
+    width: 20px;
+    background-position: -134px -1px;
+    .disabled {
+        background-position: -187px -1px;
+    }
+}
