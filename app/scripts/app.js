@@ -3,6 +3,7 @@
 require("babel/polyfill");
 require('jquery');
 require('./es6/tree');
+require('./es6/class');
 
 function* iterTree(tree) {
   if (Array.isArray(tree)) {

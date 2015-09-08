@@ -29,12 +29,12 @@ $verticalAlign: left, right, top, bottom, center, middle;
 $directions: top, left, right, bottom;
 @each $dir in $directions {
     @for $i from 1 through 36 {
-        .largout-margin-#{$i * 5}-#{$dir} { 
+        /* .largout-margin-#{$i * 5}-#{$dir} { 
             margin-#{$dir}: #{$i * 5}px;
         }
         .largout-margin-#{$i * 5}-#{$dir}-reverse { 
             margin-#{$dir}: -#{$i * 5}px;
-        }
+        } */
     }
 }
 
@@ -46,9 +46,9 @@ $font-color: #222, #333, #666, #888, #ccc, #eee, #dcdcdc;
     }
 }
 @for $i from 12 to 36 {
-    .s-fs-#{$i} {
+    /* .s-fs-#{$i} {
         font-size: #{$i}px
-    }
+    } */
 }
 
 /* ico sprite */
