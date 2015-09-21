@@ -2,9 +2,13 @@
 	"app": "app",
 	"dest": "build",
 	"port": 8080,
+	"scripts": {
+		"src": "app/src/**/*.js"
+	},
 	"browserify": {
 		"extensions": [".coffee", ".hbs"],
 		"debug": true,
+		"prodSourcemap": false,
 		"bundleConfigs": [{
 		    "entries": "app/scripts/app.js",
 		    "dest": "app/scripts/",

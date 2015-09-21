@@ -4,6 +4,8 @@ require("babel/polyfill");
 require('jquery');
 require('./es6/tree');
 require('./es6/class');
+var Util = require('./util');
+var headerHtml = require('./template/header.html');
 
 function* iterTree(tree) {
   if (Array.isArray(tree)) {
@@ -20,3 +22,5 @@ const tree = [ 'a', ['b', 'c'], ['d', 'e', 'abcd'] ];
 for(let x of iterTree(tree)) {
   // console.log(x);
 } 
+
+console.log(headerHtml);

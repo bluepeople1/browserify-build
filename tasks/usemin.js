@@ -10,6 +10,7 @@ var config     = require('../config.json');
  * foreach is because usemin 0.3.11 won't manipulate
  * multiple files as an array.
  */
+ 
 gulp.task('usemin', function() {
   return gulp.src(config.app + '/*.html')
     .pipe(foreach(function(stream, file) {
