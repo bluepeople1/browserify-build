@@ -16,5 +16,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(config.app + "/styles"))
         .pipe(browserSync.stream({ once: true }));
 
-    gulp.watch(config.app + '/styles/sass/*.scss', ['sass'])
+    
 })
+
+gulp.watch(config.app + '/styles/sass/*.scss', ['sass'])

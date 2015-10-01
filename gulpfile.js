@@ -28,7 +28,7 @@ gulp.task('default', ['dev']);
 gulp.task('build', ['clean'], function () {
     global.isProd = true;
 
-    runSequence(['browserify', 'sass', 'imagemin'], 'usemin', function () {
+    runSequence(['browserify', 'sass'], 'usemin', function () {
         gUtil.log('finish build...');
         // process.exit();
     })
