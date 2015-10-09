@@ -5,16 +5,20 @@
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
-    "start": "npm install -g bower gulp && npm install && bower install && gulp default",
-    "build": "gulp build"
   },
   "keywords": [
     "gulp",
     "browserify",
-    "browsersync"
+    "browsersync",
+    "build"
   ],
-  "author": "chenke",
+  "author": "chenkehxx<chenkehxx@gmail.com>",
   "license": "ISC",
+  "repository": "https://github.com/chenkehxx/browserify-build.git",
+  "bugs": {
+    "url": "https://github.com/chenkehxx/browserify-build/issues",
+    "email": "chenkehxx@gmail.com"
+  },
   "devDependencies": {},
   "dependencies": {
     "babel": "^5.8.23",
