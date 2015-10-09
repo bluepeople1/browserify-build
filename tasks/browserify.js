@@ -1,9 +1,5 @@
 'use strict';
-<<<<<<< HEAD
-var config       = require('../config.json').browserify;
-=======
 var config       = require(global.configPath).browserify;
->>>>>>> es6
 var gulp         = require('gulp');
 var gulpif       = require('gulp-if');
 var gutil        = require('gulp-util');
@@ -19,16 +15,10 @@ var handleErrors = require('./util/handlerError');
 var browserSync  = require('./browserSync');
 var stringify    = require('stringify');
 var debowerify   = require('debowerify');
-<<<<<<< HEAD
 var sassify      = require('sassify');
 var ngAnnotate   = require('browserify-ngannotate');
 
-=======
-// var sassify      = require('sassify');
-var ngAnnotate   = require('browserify-ngannotate');
 
-
->>>>>>> es6
 function buildScript(fileConfig) {
 
   var bundler = browserify({
@@ -52,7 +42,7 @@ function buildScript(fileConfig) {
     babelify.configure({
         ignore: /(bower_components)|(node_modules)/,
         stage: 0,
-        optional: ["runtime"]
+        // optional: ["runtime"]
     }),
     // debowerify,
     sassify,
