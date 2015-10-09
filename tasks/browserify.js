@@ -1,124 +1,77 @@
-var watchify     = require('watchify');
+'use strict';
+var config       = require('../config.json').browserify;
 var gulp         = require('gulp');
-var source       = require('vinyl-source-stream');
-var buffer       = require('vinyl-buffer');
+var gulpif       = require('gulp-if');
 var gutil        = require('gulp-util');
+var source       = require('vinyl-source-stream');
 var sourcemaps   = require('gulp-sourcemaps');
+var buffer       = require('vinyl-buffer');
+var streamify    = require('gulp-streamify');
+var watchify     = require('watchify');
 var browserify   = require('browserify');
-var uglify       = require('gulp-uglify');
-var browsersync  = require('./browser-sync');
-var bundleLogger = require('./util/logger');
-var handleErrors = require('./util/handlerError');
-var Config       = require('../config.json').browserify;
 var babelify     = require('babelify');
+var uglify       = require('gulp-uglify');
+var handleErrors = require('./util/handlerError');
+var browserSync  = require('./browserSync');
+var stringify    = require('stringify');
+var debowerify   = require('debowerify');
+// var sassify      = require('sassify');
+var ngAnnotate   = require('browserify-ngannotate');
 
-gulp.task('browserify', function () {
+function buildScript(fileConfig) {
 
-  browsersync.notify('Browserify start');
-  var bundleQueue = Config.bundleConfigs.length;
+  var bundler = browserify({
+    entries: fileConfig.entries,
+    debug: true,
+    cache: {},
+    packageCache: {},
+    fullPaths: !global.isProd
+  });
 
-  var browserifyOne = function (bundleConfig) {
-
-    var bundler = browserify({
-      // Required watchify args
-      cache: {},
-      packageCache: {},
-      fullPaths: false,
-      // Specify the entry point of your app
-      entries: bundleConfig.entries,
-      // Enable source maps!
-      debug: Config.debug,
-      // Add file extentions to make optional in your requires
-      extensions: Config.extensions,
-      // runtime: require.resolve('regenerator/runtime')
-    })
-
-    var bundle = function () {
-      // Log when bundling starts
-        bundleLogger.start(bundleConfig.outputName);
-        return bundler
-            .transform(babelify.configure({
-                ignore: /(bower_components)|(node_modules)/,
-                stage: 0,
-                optional: ["runtime"]
-            }))
-            .bundle()
-            // Report compile errors
-            .on('error', handleErrors)
-            // Use vinyl-source-stream to make the
-            // stream gulp compatible. Specifiy the
-            // desired output filename here.
-            .pipe(source(bundleConfig.outputName))
-            // optional, remove if you don't need to buffer file contents
-            .pipe(buffer())
-            // optional, remove if you dont want sourcemaps
-            .pipe(sourcemaps.init({loadMaps: true, debug: true}))
-            // .pipe(uglify())
-            // writes .map file
-            .pipe(sourcemaps.write('./'))
-            // Specify the output destination
-            .pipe(gulp.dest(!gulp.env.production ? bundleConfig.dest : bundleConfig.build))
-            .on('end', function () {
-              gutil.log('Browserify end!')
-            });
-    }
-
+  if (!global.isProd || true) {
     bundler = watchify(bundler);
-    bundler.on('update', bundle);
-    bundler.on('log', gutil.log);
-
-    return bundle();
+    bundler.on('update', function() {
+      rebundle();
+    });
+     bundler.on('log', gutil.log);
   }
-  
-  // Start bundling with Browserify for each bundleConfig specified
-    Config.bundleConfigs.forEach(browserifyOne);
-})
 
-/*gulp.task('browserify', function(callback){
+  var transforms = [
+    babelify,
+    debowerify,
+    // sassify,
+    stringify,
+    ngAnnotate,
+    'brfs',
+    'bulkify'
+  ];
 
-    function createBundle(b_config){
+  transforms.forEach(function(transform) {
+    bundler.transform(transform);
+  });
 
-        var bundler = browserify(b_config.entry, {
-            debug: true,
-        });
+  function rebundle() {
+    var stream = bundler.bundle();
+    var createSourcemap = global.isProd && config.prodSourcemap;
 
-        if( global.isWatching ){
-            // console.log("Uses watchify");
-            bundler = watchify(bundler);
-            bundler.on('update', bundle);
-        }
+    return stream.on('error', handleErrors)
+      .pipe(source(fileConfig.outputName))
+      .pipe(gulpif(createSourcemap, buffer()))
+      .pipe(gulpif(createSourcemap, sourcemaps.init()))
+      .pipe(gulpif(global.isProd, streamify(uglify({
+        compress: { drop_console: true }
+      }))))
+      .pipe(gulpif(createSourcemap, sourcemaps.write('./')))
+      .pipe(gulp.dest(fileConfig.dest))
+      .pipe(browserSync.stream({ once: true }));
+  }
 
-        bundler.transform(to5);
+  return rebundle();
 
-        var reportFinsihed = function(){
-            bundleLogger.end(b_config.outputName);
+}
 
+gulp.task('browserify', function() {
 
-            if( bundleQueueLen ){
-                bundleQueueLen --;
+    config.bundleConfigs.forEach(buildScript);
 
-                if( bundleQueueLen === 0 ){
-                    callback();
-                }
-            }
-        };
-
-        function bundle(){
-            // Create a logger when it starts logging
-            bundleLogger.start(b_config.outputName);
-
-            return bundler.bundle()
-                    .on('error', handleErrors)
-                    .pipe(source(b_config.outputName))
-                    .pipe(gulp.dest(b_config.dest))
-                    .on('end', reportFinsihed);
-        }
-
-        bundle();
-    }
-
-    var bundleQueue = config.bundleConfigs;
-    var bundleQueueLen = bundleQueue.length;
-    bundleQueue.forEach(createBundle);
-
-});*/
+});

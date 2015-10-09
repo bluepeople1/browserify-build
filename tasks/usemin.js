@@ -15,12 +15,10 @@ gulp.task('usemin', function() {
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(usemin({
-          css: [ minifyCss(), 'concat' ],
-          // html: [ minifyHtml({ empty: true }) ],
+          html: [ minifyHtml({ empty: true }) ],
           js: [ uglify(), rev() ],
-          inlinejs: [ uglify(),rev() ],
-          inlinecss: [ minifyCss(), 'concat' ]
+          css: [ minifyCss()]
         }))
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest(config.dest));
     }));
 });

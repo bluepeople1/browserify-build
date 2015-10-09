@@ -1,7 +1,7 @@
 {
   "name": "bulid-tools",
-  "version": "0.0.1",
-  "description": "this is an auto build tools",
+  "version": "1.0.0",
+  "description": "this is an auto develop tools with browserify build",
   "main": "index.js",
   "scripts": {
     "start": "npm install -g bower gulp && npm install && bower install && gulp default",
@@ -32,7 +32,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-usemin": "^0.3.11",
     "gulp-util": "^3.0.6",
-    "imagemin-pngquant": "^4.1.2",
+    "imagemin-pngquant": "^4.2.0",
     "lodash.assign": "^3.2.0",
     "mount-tasks": "^1.0.4",
     "pretty-hrtime": "^1.0.0",
@@ -42,15 +42,12 @@
     "rimraf": "^2.4.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.3.0",
-    "wiredep": "^3.0.0-beta"
+    "watchify": "^3.3.0"
   },
   "dependencies": {
-    "babel": "^5.8.23",
-    "babel-runtime": "^5.8.20",
     "bootstrap": "^3.3.5",
+    "gulp-sass": "^2.0.4",
     "jquery": "^2.1.4",
-    "regenerator": "^0.8.36",
     "underscore": "^1.8.3"
   }
 }

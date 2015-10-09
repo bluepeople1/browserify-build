@@ -5,7 +5,7 @@ var Config      = require('../config.json');
 // 服务器启动
 gulp.task('serve', function() {
     browserSync.init([Config.app + '/{**/,}*.css', Config.app + '/{**/,}bundle.js'], {
-        // https: true,
+        https: true,
         port: Config.port,
         ui: {
 		    port: 3000,
@@ -17,7 +17,7 @@ gulp.task('serve', function() {
 		notify: false,
 		browser: "google chrome",
         open: "external",
-        // open: false,
+        open: false,
 	    ghostMode: {
 	        clicks: true,
 	        location: true,
