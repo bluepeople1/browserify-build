@@ -1,11 +1,11 @@
 var gulp        = require('gulp')
 var browserSync = require('browser-sync').create();
-var Config      = require('../config.json');
+var Config      = require(global.configPath);
 
 // 服务器启动
-gulp.task('serve', function() {
+gulp.task('browserSync', function() {
     browserSync.init([Config.app + '/{**/,}*.css', Config.app + '/{**/,}bundle.js'], {
-        https: true,
+        https: Config.https,
         port: Config.port,
         ui: {
 		    port: 3000,
@@ -17,7 +17,7 @@ gulp.task('serve', function() {
 		notify: false,
 		browser: "google chrome",
         open: "external",
-        open: false,
+        // open: false,
 	    ghostMode: {
 	        clicks: true,
 	        location: true,
@@ -29,6 +29,7 @@ gulp.task('serve', function() {
 		    open: false,
 		    routes: {
 		        "/bower_components": "bower_components",
+		        "/node_modules": "node_modules",
 		    }
 		},
         reloadDebounce: 2000

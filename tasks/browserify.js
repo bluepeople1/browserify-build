@@ -1,5 +1,5 @@
 'use strict';
-var config       = require('../config.json').browserify;
+var config       = require(global.configPath).browserify;
 var gulp         = require('gulp');
 var gulpif       = require('gulp-if');
 var gutil        = require('gulp-util');
@@ -17,6 +17,7 @@ var stringify    = require('stringify');
 var debowerify   = require('debowerify');
 // var sassify      = require('sassify');
 var ngAnnotate   = require('browserify-ngannotate');
+
 
 function buildScript(fileConfig) {
 
@@ -37,7 +38,11 @@ function buildScript(fileConfig) {
   }
 
   var transforms = [
-    babelify,
+    babelify.configure({
+      ignore: /(bower_components)|(node_modules)/,
+      stage: 0,
+      // optional: ["runtime"]
+    }),
     debowerify,
     // sassify,
     stringify,

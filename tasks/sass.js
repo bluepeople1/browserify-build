@@ -5,9 +5,10 @@ var sass         = require("gulp-sass");
 var sourcemaps   = require('gulp-sourcemaps');
 var gulpif       = require('gulp-if');
 var buffer       = require('vinyl-buffer');
+var cssImport    = require('gulp-cssimport');
 var browserSync  = require('./browserSync');
 var handleErrors = require('./util/handlerError');
-var config       = require('../config.json');
+var config       = require(global.configPath);
 
 var createSourcemap = true;
 gulp.task('sass', function () {
@@ -19,10 +20,9 @@ gulp.task('sass', function () {
             style: 'compressed',
             includePaths: [
                 config.app + '/styles/sass',
-                './node_modules/font-awesome/scss',
-                './node_modules/nprogresss'
-            ]
+            ],
         }))
+        .pipe(cssImport())
         .on('error', handleErrors)
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.app + "/styles"))
