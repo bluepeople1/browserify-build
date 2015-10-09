@@ -1,4 +1,8 @@
 {
+    "app": "src",
+    "build": "dst",
+    "port": 9000,
+    "https": false,
     "browserify": {
         "extensions": [
             ".coffee",
@@ -7,13 +11,10 @@
         "debug": true,
         "bundleConfigs": [
             {
-                "entries": "undefined/scripts/app.js",
-                "dest": "undefined/scripts/",
+                "entries": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/app.js",
+                "dest": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/",
                 "outputName": "bundle.js"
             }
         ]
-    },
-    "app": "app",
-    "build": "build",
-    "port": 8080
+    }
 }
