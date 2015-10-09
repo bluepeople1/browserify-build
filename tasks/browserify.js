@@ -1,5 +1,9 @@
 'use strict';
+<<<<<<< HEAD
 var config       = require('../config.json').browserify;
+=======
+var config       = require(global.configPath).browserify;
+>>>>>>> es6
 var gulp         = require('gulp');
 var gulpif       = require('gulp-if');
 var gutil        = require('gulp-util');
@@ -15,9 +19,16 @@ var handleErrors = require('./util/handlerError');
 var browserSync  = require('./browserSync');
 var stringify    = require('stringify');
 var debowerify   = require('debowerify');
+<<<<<<< HEAD
 var sassify      = require('sassify');
 var ngAnnotate   = require('browserify-ngannotate');
 
+=======
+// var sassify      = require('sassify');
+var ngAnnotate   = require('browserify-ngannotate');
+
+
+>>>>>>> es6
 function buildScript(fileConfig) {
 
   var bundler = browserify({
@@ -29,6 +40,7 @@ function buildScript(fileConfig) {
   });
 
   if (!global.isProd ) {
+
     bundler = watchify(bundler);
     bundler.on('update', function() {
       rebundle();
@@ -58,17 +70,17 @@ function buildScript(fileConfig) {
     var stream = bundler.bundle();
     var createSourcemap = global.isProd && config.prodSourcemap;
 
-    gutil.log('Rebundle...');
 
     return stream.on('error', handleErrors)
       .pipe(source(fileConfig.outputName))
       .pipe(gulpif(createSourcemap, buffer()))
       .pipe(gulpif(createSourcemap, sourcemaps.init()))
-      /*.pipe(gulpif(global.isProd, streamify(uglify({
+
+      .pipe(gulpif(global.isProd, streamify(uglify({
         compress: { drop_console: true }
-      }))))*/
+      }))))
       .pipe(gulpif(createSourcemap, sourcemaps.write('./')))
-      .pipe(gulp.dest(global.isProd ? fileConfig.build : fileConfig.dest))
+      .pipe(gulp.dest(fileConfig.dest))
       .pipe(browserSync.stream({ once: true }));
   }
 

@@ -1,8 +1,6 @@
-### browserify-build
-	
-使用`browserify-build`,可用避免工作目录有多余的`gulpfile.js`和相应的`node_moudles`文件。同时也避免了当存在多个工作目录时，么个目录都需相应的gulp文件。
-
-<<<<<<< HEAD
+### 自动化构建工具
+  
+自动化构建工具基于几个模块开发：gulp, browserify, browsersync开发，主要实现基本的构建和开发，具体的推送方案暂时还没实现。
 
 #### 注意事项
 
@@ -10,14 +8,14 @@
 * python 3.x的版本与2.x版本不兼容，请使用2.x的版本
 * 如果不想使用sass, 请在gulpfile.js中
 
-		runSequence(['browserify', 'sass', 'wiredep'], 'browserSync', function () {
-            gUtil.log('start development...');
-        })
+		gulp.task('default', ['clean', 'browserify', 'sass', 'wiredep', 'serve'], function () {
+			gulp.watch("bower.json", ['wiredep']);
+		});
 		
 		<!--改成下面的-->
-		runSequence(['browserify', 'wiredep'], 'browserSync', function () {
-            gUtil.log('start development...');
-        })
+			gulp.task('default', ['clean', 'browserify', 'wiredep', 'serve'], function () {
+			gulp.watch("bower.json", ['wiredep']);
+		});
 
 * 若没有自动刷新，请执行`npm install -g browser-sync`, 如果安装没有成功，请继续执行以下操作，参照[browser-sync官网](http://www.browsersync.io/docs/#windows-users)
 
@@ -42,50 +40,10 @@
   * `gulp default`启动`gulp`服务器
   
 
-#### tips
- * 支持es6写法
- * 支持直接require('*.html')
- * 支持bulk(按规则引用文件)
- * 支持单元测试，karma配置文件为`test/karma.conf.js`
- * 支持e2e测试，protractor配置文件为`test/protractor.conf.js`
- * 具体[demo](https://github.com/chenkehxx/cloud-space)
-
-### config
- * 配置文件为config.json
- * `port`为即将server指定的端口号
- * `browserify`中的bundleConfigs可以指定多个文件
-
 #### 结构
 
  * 整个文件一共有4个文件夹目录，其中app为我们的开发文件夹，所有开发代码建议都同意保存在app下，build文件夹为开发工具构建后的文件夹，任何情况下都不建议去修改该文件夹下地东西，node_modules为npm依赖模块的文件夹，属于库文件，绝不允许修改(node_modules已经被添加到.gitignore中,避免提交到git仓库中)，bower_components为bower安装的库文件，也不允许修改
  * `npm start`命令只是在第一次git clone后执行，后面的开发中，并不需要重复执行`npm build`, 只需要执行`gulp`就好
- * 开发时，请在命令行中输入：`gulp`或`gulp dev`, 然后会启动服务器，并在浏览器中打开。
- * 执行unit test, 请输入`karam start test/karma.conf.js`
- * 执行e2e test, 请输入`protractor test/protractor.conf.js`
- * 当开发结束后，请输入`gulp build`, 工程会自动构建。
-=======
-#### 安装
-
- * `npm install -g browserify-build`, 安装到全局变量，便于使用
- 
-#### 用法
- 	
- 	browserify-build init 
- 	   在工作目录执行，将会自动创建一个简单可用的demo
- 	   
- 	browserify-build config
- 		如已经存在工作目录，则执行该命令，创建：build.conf.json文件
- 	
- 	browserify-build start
- 		根据工作目录下的build.conf.json，进行相应编译部署
- 	
- 	broserify-build build
- 		开始进行构建。
-
-
- 	
-
-	  
- 
->>>>>>> es6
+ * 开发时，请在命令行中输入：`gulp`, 然后会启动服务器，并在浏览器中打开。
+ * 当开发结束后，请输入`gulp build --production`, 工程会自动构建。
  

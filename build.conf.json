@@ -1,0 +1,20 @@
+{
+    "app": "src",
+    "build": "dst",
+    "port": 9000,
+    "https": false,
+    "browserify": {
+        "extensions": [
+            ".coffee",
+            ".hbs"
+        ],
+        "debug": true,
+        "bundleConfigs": [
+            {
+                "entries": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/app.js",
+                "dest": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/",
+                "outputName": "bundle.js"
+            }
+        ]
+    }
+}

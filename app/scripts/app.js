@@ -1,7 +1,7 @@
 'use strict';
 
 require("babel/polyfill");
-require('jquery');
+// require('jquery');
 require('./es6/tree');
 require('./es6/class');
 var Util = require('./util');

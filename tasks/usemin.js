@@ -5,7 +5,8 @@ var foreach    = require('gulp-foreach');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss  = require('gulp-minify-css');
 var rev        = require('gulp-rev');
-var config     = require('../config.json');
+var config     = require(global.configPath);
+
 /*
  * foreach is because usemin 0.3.11 won't manipulate
  * multiple files as an array.
@@ -16,12 +17,10 @@ gulp.task('usemin', function() {
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(usemin({
-          css: [ minifyCss(), 'concat' ],
-          // html: [ minifyHtml({ empty: true }) ],
+          html: [ minifyHtml({ empty: true }) ],
           js: [ uglify(), rev() ],
-          inlinejs: [ uglify(),rev() ],
-          inlinecss: [ minifyCss(), 'concat' ]
+          css: [ minifyCss()]
         }))
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest(config.build));
     }));
 });

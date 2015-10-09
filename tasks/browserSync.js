@@ -1,6 +1,6 @@
 var gulp        = require('gulp')
 var browserSync = require('browser-sync').create();
-var Config      = require('../config.json');
+var Config      = require(global.configPath);
 
 // 服务器启动
 gulp.task('browserSync', function() {
@@ -29,6 +29,7 @@ gulp.task('browserSync', function() {
 		    open: false,
 		    routes: {
 		        "/bower_components": "bower_components",
+		        "/node_modules": "node_modules",
 		    }
 		},
         reloadDebounce: 2000
