@@ -1,6 +1,7 @@
 var gulp        = require('gulp')
 var browserSync = require('browser-sync').create();
 var Config      = require(global.configPath);
+var path        = require('path');
 
 // 服务器启动
 gulp.task('browserSync', function() {
@@ -28,8 +29,9 @@ gulp.task('browserSync', function() {
 		    baseDir: Config.app,
 		    open: false,
 		    routes: {
-		        "/bower_components": "bower_components",
-		        "/node_modules": "node_modules",
+		        "/bower_components": path.join(global.configPath, '../bower_components'),
+		        // "/node_modules":  + "node_modules"
+		        "/node_modules": path.join(global.configPath, '../node_modules'),
 		    }
 		},
         reloadDebounce: 2000
