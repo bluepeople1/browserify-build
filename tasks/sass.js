@@ -6,7 +6,6 @@ var sourcemaps   = require('gulp-sourcemaps');
 var gulpif       = require('gulp-if');
 var buffer       = require('vinyl-buffer');
 var cssImport    = require('gulp-cssimport');
-
 var browserSync  = require('./browserSync');
 var handleErrors = require('./util/handlerError');
 var config       = require(global.configPath);
@@ -20,9 +19,6 @@ gulp.task('sass', function () {
         .pipe(sourcemaps.init())
         .pipe(sass({
             style: 'compressed',
-            includePaths: [
-                config.app + '/styles/sass',
-            ],
         }))
         .pipe(cssImport())
         .on('error', handleErrors)

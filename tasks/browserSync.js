@@ -6,7 +6,7 @@ var path        = require('path');
 // 服务器启动
 gulp.task('browserSync', function() {
     browserSync.init({
-        // https: true,
+        https: Config.https,
         port: Config.port,
         ui: {
 		    port: 3000,
@@ -34,7 +34,8 @@ gulp.task('browserSync', function() {
 		        "/node_modules": path.join(global.configPath, '../node_modules'),
 		    }
 		},
-        reloadDebounce: 2000
+        // reloadDebounce: 2000
+        proxy: Config.proxy,
     });
 
     gulp.watch(Config.app + '/*.html', browserSync.reload);

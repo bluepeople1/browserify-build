@@ -17,7 +17,7 @@ var _dirpath = __dirname;
 var Config = {
     app: cwd + '/app',
     build: cwd + 'build',
-    port: 8080,
+    port: 9000,
     https: false,
     browserify: {
         extensions: [".coffee", ".hbs"],
@@ -27,7 +27,9 @@ var Config = {
             dest: cwd + '/app/scripts/',
             outputName: 'bundle.js'
         }]
-    }
+    },
+    proxy: false,
+    https: false,
 };
 
 // init 参数, 构建build.conf.json
@@ -50,16 +52,32 @@ if (args[0] == 'config' || args.length === 0) {
 function config () {
     console.log('\n\nThis utility will walk you through creating a build.conf.json file.\n, it only cover common items.\n Press ^C at any time to quit.\n\n');
 
-    prompts.question('please input the app folder name: ', function (expression) {
+    prompts.question('please input the app folder name(default: app): ', function (expression) {
         Config.app = cwd + '/' + expression;
-        prompts.question('please input the build folder name: ', function (expression) {
+        prompts.question('please input the build folder name(default: build): ', function (expression) {
             Config.build = cwd + '/' + expression;
 
-            prompts.question('please input the sever port: ', function (expression) {
+            prompts.question('please input the sever port(default: 9000): ', function (expression) {
                 Config.port = parseInt(expression);
-                console.log('write build.conf.js');
-                fs.writeFileSync(path.join(cwd, 'build.conf.json'), JSON.stringify(Config, null, 4));
-                process.exit();
+                
+                prompts.question('if support https(true or false): ', function (expression) {
+                    // Config.https =!!expression;
+                    if (expression == 'true') {
+                        Config.https = true;
+                    } else if (expression == 'false') {
+                        Config.https = false;
+                    }
+
+                    prompts.question('if support the browser-syne proxt (default: false): ', function (expression) {
+                        if (expression == 'false') {
+                            Config.proxy = false;
+                        } else {
+                            Config.proxy = expression;
+                        }
+                        fs.writeFileSync(path.join(cwd, 'build.conf.json'), JSON.stringify(Config, null, 4));
+                        process.exit();
+                    })
+                })
             })
         })
     });
@@ -77,7 +95,6 @@ function init () {
             var packagePromise = Q.defer();
             if (!exists) {
                 packagePromise = copy(path.join(__dirname, 'package.json'), path.join(cwd, 'package.json'))
-                // process.exit();
             } else {
                 // 将当前的package.json 中 dependencies合并到工作目录中的package.json的devDependencies；
                 var srcJson = require('./package.json');
@@ -85,8 +102,6 @@ function init () {
                 extend(srcJson.dependencies, dstJson.devDependencies);
 
                 fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(dstJson, null, 4), 'utf-8');
-                // fs.writeFileSync(path.join(cwd, 'build.conf.json'), JSON.stringify(Config, null, 4), 'utf-8');
-                // process.exit();
             }
 
             setTimeout(function () {
@@ -97,7 +112,9 @@ function init () {
 }
 
 function task(command) {
-    var exec = child_process.exec('gulp '+ command +' --gulpfile ' + path.join(__dirname, 'gulpfile.js') + ' --config ' + cwd, function (error, stdout, stderr) {
+    var exec = child_process.exec('gulp '+ command +' --gulpfile ' + path.join(__dirname, 'gulpfile.js') + ' --config ' + cwd, {
+        customFds: [0,1,2]
+    }, function (error, stdout, stderr) {
         stdout && console.log('stdout: ' + stdout);
         stderr && console.log('stderr: ' + stderr);
         if (error !== null) {
@@ -106,16 +123,17 @@ function task(command) {
         }
     })
     exec.stdout.on('data', function (data) {
-        // console.log(data.toString());
-        process.stdout.write(data.toString());
+        var str = data.toString();
+        process.stdout.write('\x1b[36m' + str + '\x1b[0m');
     })
     exec.stderr.on('data', function (data) {
-        // console.error(data.toString());
-        process.stdout.write(data.toString());
+        var str = data.toString();
+        process.stdout.write('\x1b[31m' + str + '\x1b[0m');
     })
     process.on('exit', function () {
         console.log('end!');
         exec.kill();
+        process.exit();
     })
 }
 

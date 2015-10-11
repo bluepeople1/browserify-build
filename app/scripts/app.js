@@ -20,7 +20,7 @@ function* iterTree(tree) {
 const tree = [ 'a', ['b', 'c'], ['d', 'e', 'abcd'] ];
 
 for(let x of iterTree(tree)) {
-  // console.log(x);
+  console.log(x);
 } 
 
 console.log(headerHtml);

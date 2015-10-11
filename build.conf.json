@@ -1,6 +1,6 @@
 {
-    "app": "src",
-    "build": "dst",
+    "app": "/Users/chenke/Documents/source/github/browserify-build/app",
+    "build": "/Users/chenke/Documents/source/github/browserify-build/build",
     "port": 9000,
     "https": false,
     "browserify": {
@@ -16,5 +16,6 @@
                 "outputName": "bundle.js"
             }
         ]
-    }
+    },
+    "proxy": false
 }

@@ -42,7 +42,7 @@ function buildScript(fileConfig) {
     babelify.configure({
         ignore: /(bower_components)|(node_modules)/,
         stage: 0,
-        // optional: ["runtime"]
+        optional: ["runtime"]
     }),
     // debowerify,
     sassify,
