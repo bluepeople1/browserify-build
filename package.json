@@ -4,8 +4,7 @@
   "description": "this is an auto develop tools with browserify build",
   "main": "index.js",
   "bin": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [
     "gulp",
     "browserify",
@@ -25,11 +24,12 @@
     "babel-runtime": "^5.8.25",
     "babelify": "^6.2.0",
     "bootstrap": "^3.3.5",
+    "bootstrap-sass": "^3.3.5",
     "browser-sync": "^2.8.0",
     "browserify": "^11.0.0",
     "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
     "gulp-connect": "^2.2.0",
-    "gulp-cssimport": "^2.1.1",
     "gulp-eslint": "^1.0.0",
     "gulp-foreach": "^0.1.0",
     "gulp-imagemin": "^2.3.0",

@@ -17,6 +17,7 @@ var stringify    = require('stringify');
 var debowerify   = require('debowerify');
 var sassify      = require('sassify');
 var ngAnnotate   = require('browserify-ngannotate');
+var path         = require('path');
 
 
 function buildScript(fileConfig) {
@@ -64,13 +65,12 @@ function buildScript(fileConfig) {
     return stream.on('error', handleErrors)
       .pipe(source(fileConfig.outputName))
       .pipe(gulpif(createSourcemap, buffer()))
-      .pipe(gulpif(createSourcemap, sourcemaps.init()))
-
+      .pipe(gulpif(createSourcemap, sourcemaps.init({loadMaps: true})))
       .pipe(gulpif(global.isProd, streamify(uglify({
-        compress: { drop_console: true }
+          compress: { drop_console: config.dropConsole }
       }))))
       .pipe(gulpif(createSourcemap, sourcemaps.write('./')))
-      .pipe(gulp.dest(fileConfig.dest))
+      .pipe(gulp.dest(global.isProd ? fileConfig.build : fileConfig.dest))
       .pipe(browserSync.stream({ once: true }));
   }
 

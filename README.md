@@ -9,17 +9,21 @@
  
 #### 用法
  	
- 	browserify-build init 
- 	   在工作目录执行，将会自动创建一个简单可用的demo
+ 	* browserify-build config 
+ 	   创建build.conf.json配置文件
  	   
- 	browserify-build config
- 		如已经存在工作目录，则执行该命令，创建：build.conf.json文件
+ 	* brosserify-build init
+ 	   创建可用的一个demo
+ 	   
+ 	* browserify-build clone
+ 		clone相应的gulp task，以便自行修改
  	
- 	browserify-build start
- 		根据工作目录下的build.conf.json，进行相应编译部署
+ 	* browserify-build start
+ 		类似执行gulp dev
  	
- 	broserify-build build
- 		开始进行构建。
+ 	* browserify-build build
+ 	    构建，类似执行gulp build
+
 
 
  

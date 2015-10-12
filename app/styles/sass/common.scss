@@ -4,11 +4,6 @@ $display: inline-block;
     display: $display;
 }
 
-@for $i from 1 through 20 {
-    .layout-#{$i * 5}w { width: 5% * $i }
-}
-
-
 $headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
 @each $header, $size in $headings {
   #{$header} {
@@ -25,18 +20,6 @@ $verticalAlign: left, right, top, bottom, center, middle;
         text-align: $align;
     }
 }
-/* 方向 */
-$directions: top, left, right, bottom;
-@each $dir in $directions {
-    @for $i from 1 through 36 {
-        /* .largout-margin-#{$i * 5}-#{$dir} { 
-            margin-#{$dir}: #{$i * 5}px;
-        }
-        .largout-margin-#{$i * 5}-#{$dir}-reverse { 
-            margin-#{$dir}: -#{$i * 5}px;
-        } */
-    }
-}
 
 /* 字体颜色 */
 $font-color: #222, #333, #666, #888, #ccc, #eee, #dcdcdc;
@@ -44,11 +27,6 @@ $font-color: #222, #333, #666, #888, #ccc, #eee, #dcdcdc;
     .s-fc-#{$color} {
         color: $color
     }
-}
-@for $i from 12 to 36 {
-    /* .s-fs-#{$i} {
-        font-size: #{$i}px
-    } */
 }
 
 /* ico sprite */

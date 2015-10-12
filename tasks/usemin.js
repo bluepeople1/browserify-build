@@ -5,6 +5,7 @@ var foreach    = require('gulp-foreach');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss  = require('gulp-minify-css');
 var rev        = require('gulp-rev');
+var cssImport    = require('gulp-cssimport');
 var config     = require(global.configPath);
 
 /*
@@ -17,9 +18,9 @@ gulp.task('usemin', function() {
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(usemin({
-          html: [ minifyHtml({ empty: true }) ],
-          js: [ uglify(), rev() ],
-          css: [ minifyCss()]
+          html: [minifyHtml({ empty: true })],
+          js: [rev()],
+          css: [minifyCss()]
         }))
         .pipe(gulp.dest(config.build));
     }));

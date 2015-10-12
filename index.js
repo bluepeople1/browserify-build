@@ -1,4 +1,3 @@
-var util = require('util');
 var fs   = require('fs');
 var path = require('path');
 var readline = require('readline');
@@ -21,14 +20,19 @@ var Config = {
     browserify: {
         extensions: [".coffee", ".hbs"],
         debug: true,
+        prodSourcemap: true,
+        dropConsole: false,
         bundleConfigs: [{
             entries: cwd + '/app/scripts/app.js',
             dest: cwd + '/app/scripts/',
+            build: cwd + '/build/scripts',
             outputName: 'bundle.js'
         }]
     },
     proxy: false,
     https: false,
+    scripts: 'scripts',
+    styles: 'styles',
 };
 
 // init 参数, 构建build.conf.json
@@ -43,9 +47,21 @@ if (args[0] == 'config' || args.length === 0) {
 } else if (args[0] === 'start') {
     task('dev')
 } else if (args[0] === 'init') {
-    init();
+    
+    var appPromise = copy(path.join(__dirname, 'app'), path.join(cwd, 'app'));
+    appPromise.then(function () {
+        console.log('please exec npm install');
+    })
+    
 } else if (args[0] === 'build') {
     task('build');
+}  else if (args[0] === 'clone') {
+    clone();
+} else if (args[0] === '--task') {
+    task(args[1]);
+} else {
+    console.log('comand error, do not exit browserify-build ' + args.join(' '));
+    process.exit();
 }
 
 function config () {
@@ -82,7 +98,7 @@ function config () {
     });
 }
 
-function init () {
+function clone () {
     var appPromise = copy(path.join(__dirname, 'app'), path.join(cwd, 'app'));
     var taskPromise = copy(path.join(__dirname, 'tasks'), path.join(cwd, 'tasks'));
     var gulpPromise = copy(path.join(__dirname, 'gulpfile.js'), path.join(cwd, 'gulpfile.js'))

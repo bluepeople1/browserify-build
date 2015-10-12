@@ -8,7 +8,7 @@ class Point {
     }
 }
 
-let point = new Point('zhaomeng', 'chenke');
+let point = new Point('chenke');
 console.log(point.toString());
 console.log(point.constructor == Point.prototype.constructor)
 console.log(Point.prototype.constructor === Point);
@@ -26,7 +26,7 @@ class ColorPoint extends Point {
 
 }
 
-let color = new ColorPoint('chutian', 'zhaomeng', 'chenke');
+let color = new ColorPoint('chenkehxx', 'chenke');
 color.toString(); 
 
 import { mixins } from './mixins'

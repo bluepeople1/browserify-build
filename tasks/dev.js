@@ -6,7 +6,7 @@ gulp.task('dev', ['clean'], function () {
     gUtil.log('start development...');
     global.isProd = false;
 
-    runSequence(['browserify', 'sass', 'wiredep'], 'browserSync', function () {
+    runSequence(['browserify', 'sass', 'eslint'], 'browserSync', function () {
         gUtil.log('start development...');
     })
 })

@@ -9,13 +9,17 @@
             ".hbs"
         ],
         "debug": true,
+        "prodSourcemap": true,
         "bundleConfigs": [
             {
                 "entries": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/app.js",
                 "dest": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/",
+                "build": "/Users/chenke/Documents/source/github/browserify-build/build/scripts/",
                 "outputName": "bundle.js"
             }
         ]
     },
-    "proxy": false
+    "proxy": false,
+    "scripts": "scripts",
+    "styles": "styles"
 }

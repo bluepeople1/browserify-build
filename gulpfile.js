@@ -30,7 +30,10 @@ gulp.task('default', ['dev']);
 
 gulp.task('build', ['clean'], function () {
     global.isProd = true;
-    runSequence(['sass'], 'usemin');
+    runSequence(['browserify', 'sass', 'copy', 'browserSync', 'imagemin'], function () {
+    	// process.exit();
+    });
+
 })
 
 
