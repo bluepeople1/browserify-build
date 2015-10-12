@@ -25,7 +25,7 @@ gulp.task('browserSync', function() {
 	        forms: true,
 	        scroll: true
 	    },
-	    server: {
+	    server: !Config.proxy && {
 		    baseDir: Config.app,
 		    open: false,
 		    routes: {

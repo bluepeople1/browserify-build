@@ -1,4 +1,3 @@
-'use strict';
 var util = require('util');
 var fs   = require('fs');
 var path = require('path');
@@ -131,7 +130,6 @@ function task(command) {
         process.stdout.write('\x1b[31m' + str + '\x1b[0m');
     })
     process.on('exit', function () {
-        console.log('end!');
         exec.kill();
         process.exit();
     })
