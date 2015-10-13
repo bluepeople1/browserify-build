@@ -10,11 +10,12 @@
         ],
         "debug": true,
         "prodSourcemap": true,
+        "dropConsole": false,
         "bundleConfigs": [
             {
                 "entries": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/app.js",
                 "dest": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/",
-                "build": "/Users/chenke/Documents/source/github/browserify-build/build/scripts/",
+                "build": "/Users/chenke/Documents/source/github/browserify-build/build/scripts",
                 "outputName": "bundle.js"
             }
         ]

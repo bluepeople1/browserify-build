@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs   = require('fs');
 var path = require('path');
 var readline = require('readline');
@@ -47,10 +49,23 @@ if (args[0] == 'config' || args.length === 0) {
 } else if (args[0] === 'start') {
     task('dev')
 } else if (args[0] === 'init') {
-    
+    fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify({
+        name: 'browserify-build',
+        dependencies: {
+            "babel": "^5.8.23",
+            "babel-runtime": "^5.8.25",
+            "bootstrap": "^3.3.5",
+            "jquery": "^2.1.4"
+        },
+        "devDependencies": {},
+    }, null, 4), 'utf-8');
     var appPromise = copy(path.join(__dirname, 'app'), path.join(cwd, 'app'));
     appPromise.then(function () {
-        console.log('please exec npm install');
+        
+        setTimeout(function () {
+            console.log('please exec npm install');
+            process.exit();
+        }, 2000)
     })
     
 } else if (args[0] === 'build') {
