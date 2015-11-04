@@ -1,6 +1,6 @@
 {
   "name": "browserify-build",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "this is an auto develop tools with browserify build",
   "bin": "./index.js",
   "scripts": {},
@@ -52,6 +52,7 @@
     "mount-tasks": "^1.0.4",
     "pretty-hrtime": "^1.0.0",
     "q": "^1.4.1",
+    "reactify": "^1.1.1",
     "regenerator": "^0.8.36",
     "rename": "^1.0.3",
     "rimraf": "^2.4.2",

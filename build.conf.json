@@ -1,7 +1,8 @@
 {
     "app": "/Users/chenke/Documents/source/github/browserify-build/app",
     "build": "/Users/chenke/Documents/source/github/browserify-build/build",
-    "port": 9000,
+    "dest": "/Users/chenke/Documents/source/github/browserify-build/build",
+    "port": 9090,
     "https": false,
     "browserify": {
         "extensions": [

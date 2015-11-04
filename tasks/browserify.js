@@ -50,7 +50,8 @@ function buildScript(fileConfig) {
     stringify,
     ngAnnotate,
     'brfs',
-    'bulkify'
+    'bulkify',
+    ["reactify", {"es6": true}]
   ];
 
   transforms.forEach(function(transform) {

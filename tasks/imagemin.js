@@ -11,5 +11,5 @@ gulp.task('imagemin', function () {
 	            svgoPlugins: [{removeViewBox: false}],
 	            use: [pngquant()]
 	        }))
-        	.pipe(gulp.dest(config.dest + '/images'));
+        	.pipe(gulp.dest(config.build + '/images'));
 });
