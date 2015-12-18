@@ -8,14 +8,14 @@ var buffer       = require('vinyl-buffer');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync  = require('./browserSync');
 var handleErrors = require('./util/handlerError');
+var path         = require('path');
 var config       = require(global.configPath);
 var minifyCss    = require('gulp-minify-css');
-
 
 var createSourcemap = true;
 gulp.task('sass', function () {
 
-   gulp.src(config.app + '/' + config.styles + "/sass/{,**/}*.{scss, sass}")
+   gulp.src(path.join(config.app, config.styles, "{,**/}*.{scss, sass}"))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sass({
@@ -27,13 +27,10 @@ gulp.task('sass', function () {
         .pipe(gulpif(global.isProd, minifyCss({
             processImport: true,
         })))
-        /*.pipe(minifyCss({
-            processImport: true,
-        }))*/
         .pipe(gulpif(global.isProd, sourcemaps.write('./')))
-        .pipe(gulp.dest(global.isProd ? config.build + '/' + config.styles : config.app + '/' + config.styles))
+        .pipe(gulp.dest(path.join((global.isProd ? config.build : config.app), config.styles)))
         .pipe(browserSync.stream({ once: true }));
 
 })
 
-gulp.watch(config.app + '/styles/sass/*.scss', ['sass']);
+gulp.watch(path.join(config.app, config.styles, "{,**/}*.{scss, sass}"), ['sass']);

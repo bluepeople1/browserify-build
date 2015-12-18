@@ -1,22 +1,21 @@
 #!/usr/bin/env node
 
-var fs   = require('fs');
-var path = require('path');
-var readline = require('readline');
+var fs            = require('fs');
+var path          = require('path');
+var readline      = require('readline');
 var child_process = require('child_process');
-var Q = require('q');
-
-var prompts = readline.createInterface(process.stdin, process.stdout);
+var Q             = require('q');
+var prompts       = readline.createInterface(process.stdin, process.stdout);
 process.stdin.setEncoding("utf8")
 
-var args = process.argv.splice(2);
-var cwd  = process.cwd();
-var _dirpath = __dirname;
+var args          = process.argv.splice(2);
+var cwd           = process.cwd();
+var _dirpath      = __dirname;
 
 
 var Config = {
-    app: cwd + '/app',
-    build: cwd + 'build',
+    app: 'app',
+    build: 'build',
     port: 9000,
     https: false,
     browserify: {
@@ -25,12 +24,14 @@ var Config = {
         prodSourcemap: true,
         dropConsole: false,
         bundleConfigs: [{
-            entries: cwd + '/app/scripts/app.js',
-            dest: cwd + '/app/scripts/',
-            build: cwd + '/build/scripts',
-            outputName: 'bundle.js'
+            entries    : 'app/scripts/app.js',
+            dest       : 'app/scripts',
+            build      : 'build/scripts',
+            outputName : 'bundle.js'
         }]
     },
+    images: 'images',
+    sass: 'sass',
     proxy: false,
     https: false,
     scripts: 'scripts',
@@ -63,7 +64,7 @@ if (args[0] == 'config' || args.length === 0) {
     appPromise.then(function () {
         
         setTimeout(function () {
-            console.log('please exec npm install');
+            console.log('please exec npm install\n');
             process.exit();
         }, 2000)
     })
@@ -83,15 +84,14 @@ function config () {
     console.log('\n\nThis utility will walk you through creating a build.conf.json file.\n, it only cover common items.\n Press ^C at any time to quit.\n\n');
 
     prompts.question('please input the app folder name(default: app): ', function (expression) {
-        Config.app = cwd + '/' + expression;
+        Config.app = expression;
         prompts.question('please input the build folder name(default: build): ', function (expression) {
-            Config.build = cwd + '/' + expression;
+            Config.build = expression;
 
             prompts.question('please input the sever port(default: 9000): ', function (expression) {
                 Config.port = parseInt(expression);
                 
                 prompts.question('if support https(true or false): ', function (expression) {
-                    // Config.https =!!expression;
                     if (expression == 'true') {
                         Config.https = true;
                     } else if (expression == 'false') {
@@ -114,7 +114,7 @@ function config () {
 }
 
 function clone () {
-    var appPromise = copy(path.join(__dirname, 'app'), path.join(cwd, 'app'));
+    var appPromise  = copy(path.join(__dirname, 'app'), path.join(cwd, 'app'));
     var taskPromise = copy(path.join(__dirname, 'tasks'), path.join(cwd, 'tasks'));
     var gulpPromise = copy(path.join(__dirname, 'gulpfile.js'), path.join(cwd, 'gulpfile.js'))
     fs.writeFileSync(path.join(cwd, 'build.conf.json'), JSON.stringify(Config, null, 4), 'utf-8');

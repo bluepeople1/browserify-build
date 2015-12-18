@@ -26,7 +26,7 @@ gulp.task('browserSync', function() {
 	        scroll: true
 	    },
 	    server: !Config.proxy && {
-		    baseDir: global.isProd ? Config.build : Config.app,
+		    baseDir: path.join(global.PWD, (global.isProd ? Config.build : Config.app)),
 		    open: false,
 		    routes: {
 		        "/bower_components": path.join(global.configPath, '../bower_components'),

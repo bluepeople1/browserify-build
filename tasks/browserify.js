@@ -30,7 +30,7 @@ function buildScript(fileConfig) {
     fullPaths: !global.isProd
   });
 
-  if (!global.isProd ) {
+  if (!global.isProd) {
 
     bundler = watchify(bundler);
     bundler.on('update', function() {
@@ -45,7 +45,6 @@ function buildScript(fileConfig) {
         stage: 0,
         optional: ["runtime"]
     }),
-    // debowerify,
     sassify,
     stringify,
     ngAnnotate,
@@ -59,9 +58,8 @@ function buildScript(fileConfig) {
   });
 
   function rebundle() {
-    var stream = bundler.bundle();
+    var stream          = bundler.bundle();
     var createSourcemap = global.isProd && config.prodSourcemap;
-
 
     return stream.on('error', handleErrors)
       .pipe(source(fileConfig.outputName))
@@ -81,6 +79,11 @@ function buildScript(fileConfig) {
 
 gulp.task('browserify', function() {
 
-    config.bundleConfigs.forEach(buildScript);
+    config.bundleConfigs.map(function (item) {
+        item.entries = path.join(global.PWD, item.entries);
+        item.dest    = path.join(global.PWD, item.dest);
+        item.build   = path.join(global.PWD, item.build);
+        return item;
+    }).forEach(buildScript);
 
 });
