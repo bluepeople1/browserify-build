@@ -14,7 +14,6 @@ var uglify       = require('gulp-uglify');
 var handleErrors = require('./util/handlerError');
 var browserSync  = require('./browserSync');
 var stringify    = require('stringify');
-var debowerify   = require('debowerify');
 var sassify      = require('sassify');
 var ngAnnotate   = require('browserify-ngannotate');
 var path         = require('path');

@@ -18,7 +18,7 @@ require('run-sequence').use(gulp);
 // loading all tasks;
 require('mount-tasks')(__dirname + '/tasks');
 
-gulp.task('dev', ['clean'], function () {
+gulp.task('dev', function () {
     
     global.isProd = false;
     runSequence(['browserify', 'sass', 'eslint'], 'browserSync')
