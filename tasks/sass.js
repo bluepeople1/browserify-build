@@ -30,7 +30,6 @@ gulp.task('sass', function () {
         .pipe(gulpif(global.isProd, sourcemaps.write('./')))
         .pipe(gulp.dest(path.join((global.isProd ? config.build : config.app), config.styles)))
         .pipe(browserSync.stream({ once: true }));
-
 })
 
 gulp.watch(path.join(config.app, config.styles, "{,**/}*.{scss, sass}"), ['sass']);

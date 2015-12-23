@@ -1,7 +1,7 @@
 {
-    "app": "/Users/chenke/Documents/source/github/browserify-build/app",
-    "build": "/Users/chenke/Documents/source/github/browserify-build/build",
-    "dest": "/Users/chenke/Documents/source/github/browserify-build/build",
+    "app": "app",
+    "build": "build",
+    "dest": "build",
     "port": 9090,
     "https": false,
     "browserify": {
@@ -14,9 +14,9 @@
         "dropConsole": false,
         "bundleConfigs": [
             {
-                "entries": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/app.js",
-                "dest": "/Users/chenke/Documents/source/github/browserify-build/app/scripts/",
-                "build": "/Users/chenke/Documents/source/github/browserify-build/build/scripts",
+                "entries": "app/scripts/app.js",
+                "dest": "app/scripts/",
+                "build": "build/scripts",
                 "outputName": "bundle.js"
             }
         ]

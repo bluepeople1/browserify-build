@@ -1,13 +1,14 @@
 var gulp        = require('gulp')
 var browserSync = require('browser-sync').create();
-var Config      = require(global.configPath);
+var config      = require(global.configPath);
 var path        = require('path');
 
 // 服务器启动
 gulp.task('browserSync', function() {
+	console.log(config.app, config.build);
     browserSync.init({
-        https: Config.https,
-        port: Config.port,
+        https: config.https,
+        port: config.port,
         ui: {
 		    port: 3000,
 		    weinre: {
@@ -25,8 +26,8 @@ gulp.task('browserSync', function() {
 	        forms: true,
 	        scroll: true
 	    },
-	    server: !Config.proxy && {
-		    baseDir: path.join(global.PWD, (global.isProd ? Config.build : Config.app)),
+	    server: !config.proxy && {
+		    baseDir: path.join(global.isProd ? config.build : config.app),
 		    open: false,
 		    routes: {
 		        "/bower_components": path.join(global.configPath, '../bower_components'),
@@ -34,10 +35,10 @@ gulp.task('browserSync', function() {
 		    }
 		},
         // reloadDebounce: 2000
-        proxy: Config.proxy,
+        proxy: config.proxy,
     });
 
-    gulp.watch(Config.app + '/*.html', browserSync.reload);
+    gulp.watch(config.app + '/*.html', browserSync.reload);
 });
 
 module.exports = browserSync;

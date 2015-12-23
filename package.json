@@ -1,6 +1,6 @@
 {
   "name": "browserify-build",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "this is an auto develop tools with browserify build",
   "bin": "./index.js",
   "scripts": {},
